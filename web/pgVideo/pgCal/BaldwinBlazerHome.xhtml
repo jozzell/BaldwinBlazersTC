@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pou="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
+    <ui:include src="../videoViewPgEditingBrw-Style.xhtml" />
+    <img src="/jvp/quicklinks/blazers/BaldwinBlazersLogo.png"   width="640" style=" background:  none"/>
+    <pou:toolbar  style=" width: 97%; font-size: 10px"  >
+           <f:facet name="left">
+                <h:outputText value="Baldwin Blazers Track Club (Performance)"  style=" width: 100%; font-size: 16px; text-align:  center" />
+                
+                </f:facet>
+        </pou:toolbar>
+        
+        
+    <pou:accordionPanel var="calendarBean" 
+                        multiple="true"
+                        value="#{calMgrDisplay.grabListHome()}" 
+                        style=" width: 640px"  >
+        <pou:tab title="#{calendarBean.calDesc}" >
+            <h:panelGrid>
+                
+                <pou:column style=" width: 100%" >
+                    <h:outputText value="#{calendarBean.subjectBody}" escape="false" />
+                </pou:column>
+            </h:panelGrid>
+        </pou:tab>
+    </pou:accordionPanel>
+    
+</html>
+

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:pou="http://primefaces.org/ui">
+ 
+    <h:panelGrid id="videoPlayer" columns="1" cellpadding="10">
+            <f:facet name="header">
+                <pou:selectOneMenu
+                    style=" width: 500px; font-size: 17px"
+                    id="videoPickList"
+                    value="#{videoMgrObj.picked}" >
+
+                    
+                    <f:selectItems 
+
+                        value="#{videoMgrObj.list}" 
+                        var="videoBean" 
+                        itemLabel="#{videoBean.videoDesc}" 
+                        itemValue="#{videoBean.videoId}" />
+                    <pou:ajax event="change"  
+                              listener="#{videoMgrObj.selectChng2()}" 
+                               />
+                </pou:selectOneMenu>
+            </f:facet>
+
+            <pou:media  id="videoPlayer_sport"     
+                        value="#{videoMgrObj.videoBean.videoURL}" 
+                        width="#{videoMgrObj.videoBean.videoWidth}" 
+                           height="#{videoMgrObj.videoBean.videoHeight}"
+                           player="#{videoMgrObj.videoBean.videoPlayer}"/>
+            
+             
+            
+    
+        </h:panelGrid>
+
+</html>
+

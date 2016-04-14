@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:pou="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:include src="VideoList_Style.xhtml"/>
+    <img src="/jvp/quicklinks/blazers/BaldwinBlazersLogo.png"   width="640" style=" background:  none"/>
+   
+    <pou:dataGrid id="grdVideoListPanelGrid" var="videoBean" value="#{videoMgrObj.list}" columns="3"   rows="15"
+                  paginator="true"  style=" font-size: 16px; background:   transparent; background-color:  transparent  ; width: 640px     " 
+                  layout="grid"   rowIndexVar=""  paginatorAlwaysVisible="false"
+                  styleClass=".ui-panelgrid tr,.ui-panelgrid td"    
+                  paginatorTemplate="  {PreviousPageLink}  {NextPageLink} " 
+                  >
+        <f:facet name="header">
+            #{videoMgrObj.header} <pou:commandButton value="Add New Video"  action="#{videoMgrObj.addNewVideo()}" rendered="#{mgrVideoProduction.login}" style=" font-size: 12px" />
+        </f:facet>
+
+        <pou:panel id="grdVideoListPanel" style="text-align:center; width: 100%; background:   transparent ;background-color:  transparent" >
+            <h:panelGrid id="grdVideoList" columns="1" style="background:  transparent">
+
+                <h:commandLink action="#{videoMgrObj.setSelected()}"   >
+                    <f:setPropertyActionListener 
+                        value="#{videoBean}" 
+                        target="#{videoMgrObj.videoBean}" />
+
+                    <img src="/#{videoBean.imageName}" alt="" width="170" style=" background:  none"/>
+                    <br/>
+                    <pou:inputTextarea  rows="3" cols="25" readonly="true" 
+                                        value="#{videoBean.videoDesc}"   
+                                        style=" text-align:  center ;font-size: 12px; box-shadow: none; border:  white; background:   transparent; background-color:  transparent"  />
+
+                </h:commandLink>
+
+            </h:panelGrid>
+
+        </pou:panel>
+    </pou:dataGrid>
+
+
+
+
+</html>
+

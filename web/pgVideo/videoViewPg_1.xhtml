@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:pou="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <f:view id="jlRoomsPg01V2">
+        <h:form id="fmPg01" style="  font-size:10px">   
+            <h:head>
+                demo
+            </h:head>
+            <pou:tabView dynamic="true" cache="true">
+
+                <pou:tab title="Highlight" >
+                    <h:panelGrid columns="1" cellpadding="10">
+                        <pou:media     value="#{mgrVideoProduction.videoMgrObj.videoHighlight.videoBean.videoURL}" 
+                                       width="#{mgrVideoProduction.videoMgrObj.videoHighlight.videoBean.videoWidth}" 
+                                       height="#{mgrVideoProduction.videoMgrObj.videoHighlight.videoBean.videoHeight}"
+                                       player="#{mgrVideoProduction.videoMgrObj.videoHighlight.videoBean.videoPlayer}"/>
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </pou:tab>
+                <pou:tab title="Sweet 16">
+                    <h:panelGrid columns="1" cellpadding="10">
+                        <pou:media     value="#{mgrVideoProduction.videoMgrObj.videoSweet16.videoBean.videoURL}" 
+                                       width="#{mgrVideoProduction.videoMgrObj.videoSweet16.videoBean.videoWidth}" 
+                                       height="#{mgrVideoProduction.videoMgrObj.videoSweet16.videoBean.videoHeight}"
+                                       player="#{mgrVideoProduction.videoMgrObj.videoSweet16.videoBean.videoPlayer}"/>
+                        <h:outputText
+                            value="The story begins as Don Vito Corleone..." />
+                    </h:panelGrid>
+                </pou:tab>
+                <ui:include src="./videoViewPg_Sports.xhtml"    />
+            </pou:tabView>
+        </h:form>
+    </f:view>
+</html>
+

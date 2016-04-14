@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:pou="http://primefaces.org/ui" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:include src="videoViewPgEditingBrw-Style.xhtml" />
+     <img src="/jvp/quicklinks/blazers/BaldwinBlazersLogo.png"   width="640" style=" background:  none"/>
+    
+   <img src="/jvp/quicklinks/Capture.PNG" alt="" width="240" />
+    <br/>
+    <pou:commandButton value="Add New Video"  action="#{videoMgrObj.addNewVideo()}" rendered="#{mgrVideoProduction.login}" />
+</html>
+

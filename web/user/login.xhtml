@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:pou="http://primefaces.org/ui">
+        <pou:toolbar   style=" width: 670px" >
+        <pou:toolbarGroup  align="left" style="font-size:14px"  >
+            Login
+        </pou:toolbarGroup>
+    </pou:toolbar>
+    <pou:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+    <pou:panelGrid style="margin-top:20px; width: 300px; font-size: 14px ">
+        
+        <pou:row>
+            <pou:column colspan="1" style="text-align:  right ; background-color:   lightblue; font-size:14px">
+                E-Mail *
+            </pou:column>
+            <pou:column >
+                <pou:inputText value="#{mgrVideoProduction.userBean.EMail}" size="60" /> 
+            </pou:column>
+        </pou:row>    
+        <pou:row>
+            <pou:column colspan="1" style="text-align:  right ; background-color:   lightblue; font-size:14px">
+                Password *
+            </pou:column>
+            <pou:column >
+                <pou:password value="#{mgrVideoProduction.userBean.userPass}"  size="60" /> 
+            </pou:column>
+        </pou:row>  
+    </pou:panelGrid>
+    <br/>
+    <pou:toolbar  style=" width:  670px"  >
+        <pou:toolbarGroup  align="left" style="font-size:14px; width: 670px"  >
+            
+            <pou:commandButton value="Login"   action="#{mgrVideoProduction.chkLogin()}"  />
+        </pou:toolbarGroup>
+    </pou:toolbar>
+     <pou:dialog   id="basicDialog" header="Warning" widgetVar="dialogWidget" 
+                position="60,260" height="100" width="250" style=" font-size: 14px">  
+        Invalid/Missing E-Mail or Password
+    </pou:dialog>
+</html>
+

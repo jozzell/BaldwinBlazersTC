@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:pou="http://primefaces.org/ui">
+
+    <pou:panelGrid    >
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Name" style=" font-size: 16px" />
+            </pou:column>
+           
+        </pou:row>
+         <pou:row >
+            <pou:column  >
+                <pou:fileUpload  uploadLabel="Upload/Save" multiple="false"
+                                 fileUploadListener="#{imageDisplay_Maint_Edit.uploadFile}"
+                                 allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                 style=" font-size: 12px"
+                                 />
+            </pou:column>
+        </pou:row>
+      
+    </pou:panelGrid>
+       
+</html>
+

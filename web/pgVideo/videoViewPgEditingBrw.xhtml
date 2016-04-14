@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:pou="http://primefaces.org/ui" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+
+    <pou:panelGrid style="margin:0px 0px;  background:  transparent; background-color:  transparent;" 
+                   styleClass="noBorder"         >
+       
+        <pou:row >
+            <pou:column   style=" vertical-align: top; " width="640">
+
+                <ui:include src="#{mgrVideoProduction.url}" />
+
+            </pou:column>
+            <pou:column  style=" vertical-align: top; text-align:  center;  text-shadow:  initial" >
+                <ui:include src="videoViewPgEditingBrw-Ads.xhtml"/>
+            </pou:column>
+        </pou:row>
+
+
+
+    </pou:panelGrid>
+
+     <pou:dialog   id="basicDialog" header="Warning" widgetVar="dialogWidget" 
+                position="60,260" height="100" width="250" style=" font-size: 14px">  
+        Invalid/Missing E-Mail or Password
+    </pou:dialog>
+
+
+
+
+
+</html>
+

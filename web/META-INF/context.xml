@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/TrackClub">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="100"
+            maxIdle="30" maxWait="10000" name="jdbc/jvp" password="cru$h947" 
+            type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jlroomsc_videoproduction_001" 
+            username="jlroomsc_jozzell"/>
+  
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="100"
+            maxIdle="30" maxWait="10000" name="jdbc/blazers" password="cru$h947" 
+            type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jlroomsc_baldwin_blazers" 
+            username="jlroomsc_jozzell"/>
+  
+  
+</Context>

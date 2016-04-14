@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:pou="http://primefaces.org/ui" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <pou:panelGrid style="margin:0px 0px;  background:  transparent; background-color:  transparent;" 
+                   styleClass="noBorder"         >
+        <pou:row >
+            <pou:column colspan="3" style="text-align:  center ; background-color:   lightblue; font-size:14px">
+
+                you must login to select box
+
+            </pou:column>
+
+        </pou:row>
+        <pou:row >
+            <pou:column colspan="1" style="text-align:  right ; background-color:   lightblue; font-size:14px">
+
+                Password
+
+            </pou:column>
+            <pou:column  style=" vertical-align: top; text-align:  center;  text-shadow:  initial" >
+                <pou:password value="#{mgrVideoProduction.password}" /> <pou:commandButton value="Login"     action="#{mgrVideoProduction.checkPassword()}"  />
+            </pou:column>
+
+
+        </pou:row>
+        <pou:row >
+            <pou:column colspan="2" >
+                <h3 style="margin-top:0">How To Play</h3>
+                <pou:media value="http://www.youtube.com/v/nethRSewJjg" width="420" height="315" player="flash"/>
+            </pou:column>
+        </pou:row>
+
+
+    </pou:panelGrid>
+
+    <iframe  src="http://superbowl.baldwinblazers.com/indexView.php"
+             frameborder="0" scrolling="no"
+             width="1000" height="2030" />
+
+
+
+</html>
+

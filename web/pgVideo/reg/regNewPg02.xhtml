@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+     <html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pou="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <pou:panelGrid style="font-size:14px">  
+
+        <pou:row  >
+            <pou:column colspan="3" style="text-align:  center ; background-color:  lightblue; font-size:14px" >
+                Client Information
+            </pou:column>
+
+
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="color:  red;text-align:  right ; background-color:  lightblue; font-size:14px" >
+                First Name
+            </pou:column>
+            <pou:column colspan="2"  >
+                <pou:inputText value="#{regMgr.customerBean.firstName}" 
+                               style=" width:250px" />
+            </pou:column>
+
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="color:  red;text-align:  right ; background-color:  lightblue; font-size:14px" >
+                Last Name
+            </pou:column>
+            <pou:column colspan="2"  >
+                <pou:inputText value="#{regMgr.customerBean.lastName}" 
+                               style=" width:250px" />
+            </pou:column>
+
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  right ; background-color:  lightblue; font-size:14px" >
+                E-Mail
+            </pou:column>
+            <pou:column colspan="2"  >
+                #{regMgr.customerBean.geteMail()}
+            </pou:column
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  right ; background-color:  lightblue; 
+                        font-size:14px" >
+                Address
+            </pou:column>
+            <pou:column colspan="2"  >
+                <pou:inputText value="#{regMgr.customerBean.addr1}" style=" width:250px" />
+            </pou:column>
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  right ; background-color:  lightblue; font-size:14px" >
+                Apt/Suite
+            </pou:column>
+            <pou:column colspan="2"  >
+                <pou:inputText value="#{regMgr.customerBean.addr2}" style=" width:250px"/>
+            </pou:column>
+        </pou:row>
+
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  right ; background-color:  lightblue; font-size:14px" >
+                City/State/Zip
+            </pou:column>
+            <pou:column colspan="2" >
+                <pou:inputText value="#{regMgr.customerBean.city}" 
+                               style=" width:150px"/>
+                <pou:inputText value="#{regMgr.customerBean.state}"
+                               size="2"/> 
+
+                <pou:inputText value="#{regMgr.customerBean.zip}"
+                               size="5"/>
+            </pou:column>
+
+        </pou:row>
+
+
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  center ; background-color:  lightblue; font-size:14px" >
+                Home #
+            </pou:column>
+
+            <pou:column colspan="2" >
+                <pou:inputMask  value="#{regMgr.customerBean.hmPhone}" 
+                                mask="(999) 999-9999" size="20"
+                                />
+            </pou:column>
+        </pou:row>
+        <pou:row  >
+            <pou:column colspan="1" style="text-align:  center ; background-color:  lightblue; font-size:14px" >
+                Cell
+            </pou:column>
+
+            <pou:column colspan="2" >
+                <pou:inputMask value="#{regMgr.customerBean.wkPhone}" 
+                               mask="(999) 999-9999" size="20"
+                               />-
+                <pou:inputText value="#{jlrMgrClient_Edit.custBean.wkPhoneExt}"
+                               size="10"
+                               />
+            </pou:column>
+        </pou:row>
+
+
+    </pou:panelGrid>
+      <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+                 id="basicDialogBlockMsg"  style=" font-size: 14px"
+                 header="Client Information" 
+                 widgetVar="dialogWidgetbasicDialogBlockMsg" >  
+        #{regMgr.msg}
+    </pou:dialog> 
+    <br/>
+    
+    <pou:toolbar  style=" font-size: 14px" >
+        <pou:toolbarGroup align="left" style="font-size:14px" >
+            <pou:commandButton value="Next" action="#{regMgr.chkAddr()}" update="basicDialogBlockMsg"/>
+        </pou:toolbarGroup>
+    </pou:toolbar>
+  
+</html>
+

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:pou="http://primefaces.org/ui">
+
+    <pou:poll interval="300" listener="#{mgrVideoProduction.refreshSession()}" />
+    <pou:megaMenu  orientation="horizontal" autoDisplay="false"  >
+        <pou:menuitem value="Home"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.setHome()}" />  
+        <pou:menuitem value="Performance's"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.setAboutUs()}" />  
+        
+        <pou:menuitem value="Message Board"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.msgView()}" />  
+       <pou:menuitem value="Fundraiser"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.superbowl()}" />  
+       <pou:menuitem value="Registration"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.regNewUsers()}" />  
+       
+         <pou:submenu label="Video's" style=" font-size: 14px" >
+              
+              <pou:column>
+                  <pou:submenu label="Track and Field (OutDoor)">
+                      <pou:menuitem value="Baldwin Blazers (AAU)"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.setTrackClubAAU()}" />  
+                      <pou:menuitem value="Baldwin Blazers"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.setTrackClubOutdoor()}" />  
+                      
+                      
+                       <pou:menuitem value="Test"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.calFirst()}" />  
+                      
+                </pou:submenu>
+                 
+                  
+              </pou:column>
+             <pou:column>
+                   <pou:submenu label="Track and Field (inDoor)">
+                      <pou:menuitem value="Baldwin Blazers"  
+                      style=" font-size: 14px"
+                      action="#{mgrVideoProduction.videoMgrObjMenu.setTrackClubIndoor()}" />  
+                  </pou:submenu>
+              </pou:column>
+                  </pou:submenu>
+             
+        
+        <pou:submenu label="Coaching Staff" style=" font-size: 14px" >
+            <pou:column >
+                <pou:submenu label="user Session">
+                    <pou:menuitem value="Login" 
+                                  action="#{mgrVideoProduction.userLogin()}"
+                                  style=" font-size: 13px"  />
+                    <pou:menuitem value="Logout" 
+                                  action="#{mgrVideoProduction.userLogout()}"
+                                  style=" font-size: 13px"  />
+                </pou:submenu>
+
+            </pou:column>
+        </pou:submenu>
+        <pou:submenu label="Maint" style=" font-size: 14px"  rendered="#{mgrVideoProduction.login}"  >
+            <pou:column >
+                <pou:submenu label="'About Us">
+                <pou:menuitem value="Edit'" 
+                                  action="#{mgrVideoProduction.msgAboutUsEdit()}"
+                                  style=" font-size: 13px"  />
+                </pou:submenu>
+            </pou:column>
+            <pou:column >
+                <pou:submenu label="Performance's">
+                    
+                    <pou:menuitem value="Add New " 
+                                  action="#{mgrVideoProduction.msgPost()}"
+                                  style=" font-size: 13px"  />
+                    <pou:menuitem value="Edit" 
+                                  action="#{mgrVideoProduction.msgBrw()}"
+                                  style=" font-size: 13px"  />
+                </pou:submenu>
+                <pou:submenu label="Message">
+                    
+                    <pou:menuitem value="Add New" 
+                                  action="#{mgrVideoProduction.msgViewAdd()}"
+                                  style=" font-size: 13px"  />
+                    <pou:menuitem value="Edit" 
+                                  action="#{mgrVideoProduction.msgViewBrw()}"
+                                  style=" font-size: 13px"  />
+                </pou:submenu>
+
+            </pou:column>
+        </pou:submenu>
+        
+    </pou:megaMenu>
+
+
+</html>
+

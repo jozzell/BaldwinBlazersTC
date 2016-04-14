@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:pou="http://primefaces.org/ui">
+
+    <pou:panelGrid    >
+        <pou:row >
+            <pou:column>
+                <h:outputLabel  value="Group" style=" font-size: 16px" />
+            </pou:column>
+
+            <pou:column>
+                <pou:selectOneMenu
+                    style=" width: 500px; font-size: 17px"
+                    id="videoPickList"
+                    value="#{videoMgrObj.picked}" >
+
+
+                    <f:selectItems 
+
+                        value="#{videoMgrObj.list}" 
+                        var="videoBean" 
+                        itemLabel="#{videoBean.videoDesc}" 
+                        itemValue="#{videoBean.videoId}" />
+                    <pou:ajax event="change"  
+                              listener="#{videoMgrObj.selectChng2()}" 
+                              />
+                </pou:selectOneMenu>
+            </pou:column>
+
+        </pou:row>
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Title" style=" font-size: 16px" />
+            </pou:column>
+            <pou:column >
+                <pou:inputText value="#{videoMgrObj.videoBean.videoDesc}"  size="100" />
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="URL Value" style=" font-size: 16px" />
+            </pou:column>
+            <pou:column >
+                <pou:inputText value="#{videoMgrObj.videoBean.videoValue}" size="30" />
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Player" style=" font-size: 16px" />
+            </pou:column>
+            <pou:column >
+                <pou:selectOneMenu  value="#{videoMgrObj.videoBean.sysId}" >
+
+                    <f:selectItems 
+
+                        value="#{videoMgrObj.lookup}" 
+                        var="lookupBean" 
+                        itemLabel="#{lookupBean.disp}" 
+                        itemValue="#{lookupBean.val}" />
+                </pou:selectOneMenu>
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column >
+                <pou:outputLabel for="Ranking" value="Ranking" style=" font-size: 16px" />
+                </pou:column>
+            <pou:column >
+                <pou:spinner id="Ranking" value="#{videoMgrObj.videoBean.rank}" min="2013.9" stepFactor="0.1" />
+            </pou:column>
+        </pou:row>
+
+
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Image" style=" font-size: 16px" />
+                </pou:column>
+            <pou:column >
+                <img src="/#{videoMgrObj.videoBean.imageName}" alt="" width="50%"/>
+            </pou:column>
+        </pou:row>
+
+
+        <pou:row >
+            <pou:column  colspan="2">
+                <pou:fileUpload  uploadLabel="Upload/Save"
+                                 fileUploadListener="#{videoMgrObj.uploadFile}"
+                                 allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                 style=" font-size: 12px"
+                                 />
+            </pou:column>
+        </pou:row>
+
+
+        <pou:row >
+            <pou:column  colspan="2">
+                <pou:media     
+                            value="#{videoMgrObj.videoBean.videoURL}" 
+                            width="#{videoMgrObj.videoBean.videoWidth}" 
+                            height="#{videoMgrObj.videoBean.videoHeight}"
+                            player="#{videoMgrObj.videoBean.videoPlayer}"
+                            />
+            </pou:column>
+        </pou:row>
+
+
+
+
+
+    </pou:panelGrid>
+
+</html>
+

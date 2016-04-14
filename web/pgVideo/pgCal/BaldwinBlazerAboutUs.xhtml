@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:pou="http://primefaces.org/ui"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
+    <ui:include src="../videoViewPgEditingBrw-Style.xhtml" />
+   
+    <img src="/jvp/quicklinks/blazers/BaldwinBlazersLogo.png"   width="640" style=" background:  none"/>
+    <pou:dataTable var="calendarBean"  
+                   value="#{calMgrDisplay.grabAboutUsBean()}" style=" width: 640px"  >
+
+        <f:facet name="header">
+            <h:outputText value="About Us"  style=" width: 100%; font-size: 16px" />
+        </f:facet>
+        <pou:column style=" width: 100%" >
+            <h:outputText value="#{calendarBean.subjectBody}" escape="false" />
+        </pou:column>
+
+    </pou:dataTable>
+
+</html>
+

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:pou="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:include src="videoViewPgEditingBrw-Style.xhtml" />
+
+    <pou:panelGrid style="margin:0px 0px;  background:  transparent; background-color:  transparent; padding: 0" 
+                   styleClass="noBorder"         >
+
+        <pou:row >
+            <pou:column colspan="1"  >
+                <pou:media  id="videoPlayer_sport"     
+                            value="#{playingvideoObject.videoBean.videoURL}" 
+                            width="#{playingvideoObject.videoBean.videoWidth}" 
+                            height="#{playingvideoObject.videoBean.videoHeight}"
+                            player="#{playingvideoObject.videoBean.videoPlayer}"/>
+            </pou:column>
+            <pou:column colspan="1"  >
+                <h:outputLink value="http://long-island.usatf.org/" target="_blank">
+                    <img src="/jvp/quicklinks/blazers/USATF-logo_thumb.jpg"   width="190" style=" background:  none"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink value="http://www.aauathletics.org/" target="_blank">
+                    <img src="/jvp/quicklinks/blazers/AAU-USA-Logo.jpg"   width="190" style=" background:  none"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink value="http://www.colgategames.com//" target="_blank">
+                    <img src="/jvp/quicklinks/blazers/colgate.jpg"   width="190" style=" background:  none"/>
+                </h:outputLink>
+                <br/>
+
+
+              
+            </pou:column>
+        </pou:row>
+        <pou:row>
+            <pou:column >
+                <pou:commandButton value="Back"  action="#{playingvideoObject.back()}" style=" font-size: 12px" />
+            </pou:column>
+        </pou:row>
+
+
+    </pou:panelGrid>
+
+
+
+
+
+
+</html>

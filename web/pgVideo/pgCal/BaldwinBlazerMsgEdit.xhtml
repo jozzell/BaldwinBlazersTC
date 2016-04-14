@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pou="http://primefaces.org/ui">
+
+    <pou:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+    <pou:panelGrid style="font-size:16px;width:97%; background-color: gainsboro">
+        <pou:row >
+            <pou:column  colspan="2" style="text-align:  center; background-color:  lightblue; font-size:16px; width: 30%">
+               Message Board
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column style="text-align:  right; background-color:  lightblue; width: 30%">
+                Short Description
+            </pou:column>
+            <pou:column>
+                <pou:inputText value="#{calMgr.calendarBeanMsg.calDesc}" size="40" />
+            </pou:column>
+        </pou:row>
+         
+        
+    
+         <pou:row >
+            <pou:column style="text-align:  right; background-color:  lightblue;  width: 30%">
+                Post on
+            </pou:column>
+             <pou:column >
+                <pou:calendar 
+                              stepMinute="5" size="30"
+                              showButtonPanel="true"
+                              value="#{calMgr.calendarBeanMsg.startDate}" 
+                              pattern="MM/dd/yyyy hh:mm a" />
+                
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column style="text-align:  right; background-color:  lightblue; width: 30%">
+                   Expire Post
+            </pou:column>
+            <pou:column>
+              
+                <pou:calendar 
+                              stepMinute="5" size="30"
+                              showButtonPanel="true"
+                              value="#{calMgr.calendarBeanMsg.enddate}" 
+                              pattern="MM/dd/yyyy hh:mm a" />
+            </pou:column>
+        </pou:row>
+        <pou:row >
+            <pou:column style="text-align:  right; background-color:  lightblue; width: 30%">
+                Message
+            </pou:column>
+            <pou:column>
+                <pou:editor  value="#{calMgr.calendarBeanMsg.subjectBody}"  
+
+                             />
+                <br/>
+            </pou:column>
+        </pou:row>
+       
+    </pou:panelGrid>
+    <pou:toolbar  style=" width: 100%; font-size: 14px" >
+        <pou:toolbarGroup  align="left" style="font-size:14px; width: 97%"  >
+            <pou:commandButton value="Cancel"  action="#{calMgr.saveCancelMsg()}" />
+            <pou:commandButton value="Save"   action="#{calMgr.saveEditMsg()}"  />
+        </pou:toolbarGroup>
+    </pou:toolbar>
+</html>
+

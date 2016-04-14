@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:pou="http://primefaces.org/ui">
+        <pou:toolbar   style=" width: 670px" >
+        <pou:toolbarGroup  align="left" style="font-size:14px"  >
+            Reg
+        </pou:toolbarGroup>
+    </pou:toolbar>
+        
+        <pou:panelGrid style="font-size:10px;width:97%">
+            <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    First Name
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.firstName}" size="60" />
+                </pou:column>
+            </pou:row>
+             <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                   Last Name
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.lastName}" size="60" />
+                </pou:column>
+            </pou:row>
+             <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    EMail
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.EMail}" size="60" />
+                </pou:column>
+            </pou:row>
+             <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    Password
+                </pou:column>
+                <pou:column>
+                    <pou:password value="#{regMgr.customerBean.userPass}" size="60" />
+                </pou:column>
+            </pou:row>
+            <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    Password (Confirm)
+                </pou:column>
+                <pou:column>
+                    <pou:password value="#{regMgr.customerBean.userPassChk}" size="60" />
+                </pou:column>
+            </pou:row>
+            
+        </pou:panelGrid>
+     
+      <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+                 id="basicDialogBlockMsg"  style=" font-size: 14px"
+                 header="Client Information" 
+                 widgetVar="dialogWidgetbasicDialogBlockMsg" >  
+        #{regMgr.msg}
+    </pou:dialog> 
+    <br/>
+    
+    <pou:toolbar  style=" font-size: 14px" >
+        <pou:toolbarGroup align="left" style="font-size:14px" >
+            <pou:commandButton value="Save and Continue" action="#{regMgr.chkNewUser()}" update="basicDialogBlockMsg"/>
+        </pou:toolbarGroup>
+    </pou:toolbar>
+            
+</html>
+

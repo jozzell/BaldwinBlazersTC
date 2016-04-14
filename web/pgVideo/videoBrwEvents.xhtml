@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:pou="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <style type="text/css">
+
+        .panelNoBorder, .panelNoBorder tr, .panelNoBorder td{
+            border: hidden;
+            border-color:  white;
+        }
+        table tbody .ui-widget-content {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border: 0 solid #FFFFFF;
+            color: #333333;
+        }
+        .fixed-size {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+
+        .ui-selectoneradio td, .ui-selectoneradio tr
+        {
+            border-style: none !important
+        }
+        
+    </style>
+
+    <pou:dataGrid var="jvpLookupBean" 
+                  value="#{videoMgrObjBrw.browseList}" 
+                  columns="3"  rowIndexVar=" "
+                  layout="tabular"
+                  rows="12" 
+                  paginator="false"  
+                  style=" background:  none;  "
+                  >
+
+        <pou:panel  style="text-align:center; width: 100%; background:  none" >
+            <h:panelGrid columns="1" style="width:100%; background:  none">
+               
+                   
+
+                <h:commandLink action="#{videoMgrObjBrw.setSelected()}"   >
+                    <f:setPropertyActionListener 
+                        value="#{jvpLookupBean}" 
+                        target="#{videoMgrObjBrw.jvpLookupBean}" />
+                    
+                    <img src="/#{jvpLookupBean.subjectText}" alt="" width="215" style=" background:  none"/>
+                <img src="/jvp/default.png" alt="" width="215" style=" background:  none"/>
+                
+                    
+                    
+                <pou:inputTextarea  rows="2" cols="25" readonly="true" 
+                                    value="#{jvpLookupBean.lookupDesc}"   
+                                    style=" text-align:  center ;font-size: 16px; box-shadow: none; border:  white"  />
+                </h:commandLink>
+
+            </h:panelGrid>
+
+        </pou:panel>
+    </pou:dataGrid>
+</html>
+

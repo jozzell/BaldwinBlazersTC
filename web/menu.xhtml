@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+          xmlns:pou="http://primefaces.org/ui">
+
+     
+    <pou:poll interval="300" listener="#{mgrVideoProduction.refreshSession()}" />
+    <pou:panelMenu style="width:270px; font-size: 12px" id="md2"   >
+        
+        <pou:submenu label="Home"  >
+             <pou:menuitem value="Spinney Hill Documentary"  ajax="false"
+                          actionListener="#{mgrVideoProduction.setHome()}"/>
+            <pou:menuitem value="Gospel"  ajax="false"
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setGospelBrw()}"/>
+            
+            <pou:menuitem value="Special Event's"  ajax="false"
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setEvents()}"/>
+            
+            
+            <pou:menuitem value="Sweet 16"    ajax="false"
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setVideoSweet16()}"/>
+            
+            <pou:menuitem value="Summer Red Carpet/White Affair"    ajax="false"
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setEventsRedCarpet()}"/>
+            
+            <pou:menuitem value="Ad's"    ajax="false"
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setAdds()}"/>
+           
+        </pou:submenu>
+        
+        
+        <pou:submenu label="Gospel (Video)">
+            
+            <pou:menuitem value="Here and Now w/ Sandra Bookman"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setHearAndNow()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="Art Scene with Shirley Romaine"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setShirley()}"
+                          ajax="false" style=" text-align:  center"  />
+        </pou:submenu>
+        
+         <pou:submenu label="documentary">
+            
+          
+            <pou:menuitem value="Leone Baum (Trailblazer)"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setLeone()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="Spinney Hill (bonus footage) "  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setSpinBonus()}"
+                          ajax="false" style=" text-align:  center"  />
+        </pou:submenu>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <pou:submenu label="Professor Ronnie Felder and Voices of Inspiration (Gospel)">
+            <pou:menuitem value="Chrystal Rucker"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setMsRucker()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="Bishop Richard (Mr Clean) White"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setMrClean()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="Anaysha Figueroa-Cooper"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setAnaysha()}"
+                          ajax="false" style=" text-align:  center"  />
+            
+             <pou:menuitem value="25nd Anniversary 2014 (Brooklyn Marriott)"  
+                           actionListener="#{mgrVideoProduction.videoMgrObjMenu.set25nd()}"
+                          ajax="false" style=" text-align:  center"  />
+             
+             <pou:menuitem value="24nd Anniversary 2013"  
+                           actionListener="#{mgrVideoProduction.videoMgrObjMenu.set24nd()}"
+                          ajax="false" style=" text-align:  center"  />
+             <pou:menuitem value="23nd Anniversary 2012"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.set23nd()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="22nd Anniversary 2011"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.set22nd()}"
+                          ajax="false" style=" text-align:  center"  />
+        </pou:submenu>
+        
+        
+        
+        
+        <pou:submenu label="Community Event">
+            
+            <pou:menuitem value="Spinney Hill Community Picnic"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setCommunityPicnic()}"
+                          ajax="false" style=" text-align:  center"  />
+            <pou:menuitem value="Spinney Hill Banquet/Award Ceremony"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setCommunityAwardCeremony()}"
+                          ajax="false" style=" text-align:  center"  />
+        </pou:submenu>
+         <pou:submenu label="Sporting Events">
+            
+            <pou:menuitem value="Football Highlight Real"  
+                          actionListener="#{mgrVideoProduction.videoMgrObjMenu.setVideoSports()}"
+                          ajax="false" style=" text-align:  center"  />
+            
+           <pou:menuitem value="Football Games"  
+                         actionListener="#{mgrVideoProduction.videoMgrObjMenu.setVideoSportsGame()}"
+                          ajax="false" style=" text-align:  center"  />
+            
+        </pou:submenu>
+    </pou:panelMenu>
+
+
+</html>

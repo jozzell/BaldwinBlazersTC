@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:pou="http://primefaces.org/ui">
+
+    <pou:panelGrid    >
+        <pou:row >
+            <pou:column colspan="2" >
+                <h:outputLabel  value="Image to Upload" style=" font-size: 16px" />
+            </pou:column>
+           
+        </pou:row>
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Title" style=" font-size: 16px" />
+            </pou:column>
+            <pou:column >
+                 <h:outputLabel  value="#{playingvideoObject.videoBean.videoDesc}" style=" font-size: 12px; width: 100%" />
+                
+            </pou:column>
+        </pou:row>
+
+        <pou:row >
+            <pou:column >
+                <h:outputLabel  value="Image" style=" font-size: 16px" />
+            </pou:column>
+            <pou:column >
+
+                <img src="/#{playingvideoObject.videoBean.imageName}" alt="" width="50%"/>
+                <br/>
+                <pou:commandButton value="Skip Photo Upload"  action="#{playingvideoObject.next()}" />
+            </pou:column>
+        </pou:row>
+
+        <pou:row >
+            <pou:column  colspan="2">
+                <pou:fileUpload  uploadLabel="Next" 
+                                 fileUploadListener="#{playingvideoObject.uploadFile}"
+                                 allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                 style=" font-size: 12px"
+                                 />
+                <pou:remoteCommand  name="loadProperty" action="#{playingvideoObject.save()}" >
+                    <f:setPropertyActionListener 
+                        value="#{playingvideoObject.videoBean}" 
+                        target="#{playingvideoObject.videoBean}" />
+                </pou:remoteCommand>
+            </pou:column>
+        </pou:row>
+
+
+        <pou:row >
+            <pou:column  colspan="2">
+                <pou:media     
+                    value="#{playingvideoObject.videoBean.videoURL}" 
+                    width="#{playingvideoObject.videoBean.videoWidth}" 
+                    height="#{playingvideoObject.videoBean.videoHeight}"
+                    player="#{playingvideoObject.videoBean.videoPlayer}"
+                    />
+            </pou:column>
+        </pou:row>
+
+
+
+
+
+    </pou:panelGrid>
+
+</html>
+

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pou="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <pou:dialog  id="basicDialogEditClient"  
+                 position="20,60" resizable="false" header="Edit" widgetVar="dialogWidgetEditClient" >  
+        Nothing was selected (Click Gray Circle and Row will turn Yellow when selected)
+    </pou:dialog> 
+    <pou:panel style=" background-color: gainsboro " >
+        <pou:dataTable id="brwPosting"  
+                       var="calendarBean"   
+                       selectionMode="single" 
+                       rowKey="#{calendarBean.calId}"
+                       value="#{calMgrBrw.grabCalendarBeanModelAllMsg()}" 
+                       selection="#{calMgrBrw.calendarBean}"
+                       style=" width: 100%;background-color: gainsboro"  >
+            <pou:column selectionMode="single" style="width:16px;text-align:center"/>
+            <pou:column style=" font-size: 12px" width="10">
+                <pou:rowToggler />
+            </pou:column>
+            
+            <pou:column headerText="Start" width="160" style=" font-size: 12px" >
+                <h:outputText value="#{calendarBean.startDateDisp}" />
+            </pou:column>
+            <pou:column headerText="End" width="160" style=" font-size: 12px" >
+                <h:outputText value="#{calendarBean.endDateDisp}" />
+            </pou:column>
+            <pou:column headerText="Modifided"  width="160" style=" font-size: 12px" >
+                <h:outputText value="#{calendarBean.modDateDisplay}" />
+            </pou:column>
+            
+            
+            <pou:column headerText="Short Description" style=" font-size: 12px" >
+                <h:outputText value=" Desc: #{calendarBean.subjectText}" />
+
+            </pou:column>
+
+            <pou:rowExpansion> 
+                <h:outputText value="#{calendarBean.subjectBody}" escape="false" />              
+            </pou:rowExpansion>
+        </pou:dataTable>
+    </pou:panel>
+    <br/>
+    <pou:toolbar  style=" width: 97%; font-size: 14px"  >
+        <f:facet name="left">
+            <pou:commandButton value="New Message"     action="#{calMgrBrw.msgNew()}" />
+            <pou:commandButton value="Edit Message"    action="#{calMgrBrw.msgEdit()}"   />
+
+        </f:facet>
+    </pou:toolbar>
+</html>
+

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html  xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:pou="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <pou:toolbar style=" width: 555px; text-align:  center ">
+        <f:facet name="left" >
+            <pou:outputLabel  style=" font-size: 16px;position:relative; text-align:  center">
+                 
+                #{playingvideoObject.videoBean.videoDesc}    
+                    
+                </pou:outputLabel>
+        </f:facet>
+    </pou:toolbar>
+    <br/>
+     <pou:media  id="videoPlayer_sport"     
+                        value="#{playingvideoObject.videoBean.videoURL}" 
+                        width="#{playingvideoObject.videoBean.videoWidth}" 
+                           height="#{playingvideoObject.videoBean.videoHeight}"
+                           player="#{playingvideoObject.videoBean.videoPlayer}"/>
+     <br/><br/>
+     <br/>
+            
+      <pou:toolbar style=" width: 555px; text-align:  center ">
+        <f:facet name="left">
+            <pou:commandButton value="Back"  action="#{playingvideoObject.back()}" />
+           
+        </f:facet>
+    </pou:toolbar>
+     <br/>
+     <ui:include src="../spindoc.xhtml"  />
+    
+</html>
+
