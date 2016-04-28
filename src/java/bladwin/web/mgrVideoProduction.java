@@ -56,7 +56,7 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
     
     // =============================================================================
         public void regNewUsers(){
-            url = "reg/regPdf.xhtml";
+            url = "reg/regNewPg00.xhtml";
             setVideoType();
         }
     // =============================================================================
