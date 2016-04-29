@@ -1,0 +1,92 @@
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:pou="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   <pou:panelGrid style="font-size:14px;width:97%">
+       <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    Type
+                </pou:column>
+                <pou:column>
+                    <pou:selectOneMenu 
+                        value= "#{regMgr.customerLinkBean.type}"  >  
+                        <f:selectItems value="#{regMgr.list}" 
+                                       var="mgnLookupBean" 
+                                       itemLabel="#{mgnLookupBean.lookupDesc}" 
+                                       itemValue="#{mgnLookupBean.lookupId}"  
+                                       />
+
+                    </pou:selectOneMenu> 
+                </pou:column>
+            </pou:row>
+            <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    First Name
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.firstName}" size="60" />
+                </pou:column>
+            </pou:row>
+             <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                   Last Name
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.lastName}" size="60" />
+                </pou:column>
+            </pou:row>
+       
+        <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    Athlete Date of Birth
+                </pou:column>
+                <pou:column>
+                    <pou:calendar id="mask" value="#{regMgr.customerLinkBean.dob}" pattern="MM-dd-yyyy" mask="true" />
+ 
+                </pou:column>
+            </pou:row>
+       
+             <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    EMail
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.EMail}" size="60" />
+                </pou:column>
+            </pou:row>
+             <pou:row  >
+            <pou:column colspan="1" style="text-align:  center ; background-color:  lightblue; font-size:14px" >
+                Cell
+            </pou:column>
+
+            <pou:column colspan="2" >
+                <pou:inputMask value="#{regMgr.customerBean.wkPhone}" 
+                               mask="(999) 999-9999" size="20"
+                               />
+               
+            </pou:column>
+        </pou:row>
+            
+        </pou:panelGrid>
+    <pou:toolbar  style=" font-size: 14px" >
+        <pou:toolbarGroup align="left" style="font-size:14px" >
+            <pou:commandButton value="Cancel" action="#{regMgr.childCancel()}" />
+            <pou:commandButton value="Save" action="#{regMgr.childSave()}" update="basicDialogBlockMsg"/>
+        </pou:toolbarGroup>
+    </pou:toolbar>
+       
+        <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+                 id="basicDialogBlockMsg"  style=" font-size: 14px"
+                 header="Client Information" 
+                 widgetVar="dialogWidgetbasicDialogBlockMsg" >  
+        #{regMgr.msg}
+    </pou:dialog> 
+       
+     
+     
+    <br/>
+   
+            
+</html>
+

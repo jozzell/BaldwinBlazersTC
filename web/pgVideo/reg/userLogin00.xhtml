@@ -1,0 +1,39 @@
+<html  xmlns="http://www.w3.org/1999/xhtml"   
+       xmlns:pou="http://primefaces.org/ui" >
+    <pou:panelGrid style="font-size:14px;width:97%">
+         <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    EMail
+                </pou:column>
+                <pou:column>
+                    <pou:inputText value="#{regMgr.customerBean.EMail}" size="60" />
+                </pou:column>
+            </pou:row>
+        <pou:row >
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                    Password
+                </pou:column>
+                <pou:column>
+                    <pou:password value="#{regMgr.customerBean.userPass}" size="60" />
+                </pou:column>
+            </pou:row>
+    </pou:panelGrid>
+     <br/>
+     
+   
+    <pou:toolbar  style=" font-size: 14px" >
+        <pou:toolbarGroup align="left" style="font-size:14px" >
+            <pou:commandButton value="login" action="#{regMgr.login()}" update="basicDialogBlockMsg"/>
+            <pou:commandButton value="New Parent/Athlet" action="#{regMgr.newParent()}" update="basicDialogBlockMsg"/>
+        </pou:toolbarGroup>
+    </pou:toolbar>
+      <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+                 id="basicDialogBlockMsg"  style=" font-size: 14px"
+                 header="Client Information" 
+                 widgetVar="dialogWidgetbasicDialogBlockMsg" >  
+        #{regMgr.msg}
+    </pou:dialog> 
+       
+        
+</html>
+

@@ -20,7 +20,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import jvp.obj.bean.userBean;
 import jvp.obj.eNum.eNumVideoIDs;
-import mgn.obj._beans.customerBean;
 import mgn.obj.images.mgnMgrObjBean;
 import mgn.obj.usr.userObj;
 import mgn.web.mgr.eNum.calObjMgrEnum;
@@ -40,8 +39,8 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
     private boolean start = true,login=false,videoEditing=false,refreshList=true,superbowl=false;
     private String newPath = null,password;
     private userBean userBean;
-    private int athletId;
-    private customerBean customerBean;
+    private int athletId,parentId;
+    //private customerBean customerBean;
     private final String               
             panelWest="./menu.xhtml";
      private String 
@@ -56,7 +55,7 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
     
     // =============================================================================
         public void regNewUsers(){
-            url = "reg/regNewPg00.xhtml";
+            url = "reg/userLogin00.xhtml";
             setVideoType();
         }
     // =============================================================================
@@ -378,8 +377,13 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
     }
 
     /**
+     * @param url
      * @return the url
      */
+    public void setUrl(String url){
+        this.url = url;
+        setVideoType();
+    }
     public String getUrl() {
         return url;
     }
@@ -398,17 +402,7 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
     /**
      * @return the customerBean
      */
-    public customerBean getCustomerBean() {
-        if (customerBean == null) customerBean = new customerBean();
-        return customerBean;
-    }
-
-    /**
-     * @param customerBean the customerBean to set
-     */
-    public void setCustomerBean(customerBean customerBean) {
-        this.customerBean = customerBean;
-    }
+    
 
     /**
      * @return the athletId
@@ -422,6 +416,20 @@ public final class mgrVideoProduction extends mgrVideoProduction_EL implements v
      */
     public void setAthletId(int athletId) {
         this.athletId = athletId;
+    }
+
+    /**
+     * @return the parentId
+     */
+    public int getParentId() {
+        return parentId;
+    }
+
+    /**
+     * @param parentId the parentId to set
+     */
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     /**

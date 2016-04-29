@@ -52,7 +52,7 @@ public class regMgrAhtlete extends mgrVideoProduction_EL  implements Serializabl
             customerBean = new custObj().getcustomerBean(i, this.getDbBlazers());
             if (this.customerBean ==  null){
                 customerBean = new customerBean();
-                customerBean.setRollup_id(this.mgrVideoProduction.getCustomerBean().getCustId());
+                customerBean.setRollup_id(this.mgrVideoProduction.getParentId());
             }
         }
         return customerBean;
