@@ -4,28 +4,54 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:pou="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">  
-    <pou:dialog  id="basicDialogEditClient"  
-                 position="20,60" resizable="false" header="Edit" widgetVar="dialogWidgetEditClient" >  
-        Nothing was selected (Click Gray Circle and Row will turn Yellow when selected)
-    </pou:dialog> 
-    <pou:panel style=" background-color: gainsboro ">
+    
+    <pou:panel style=" background-color: gainsboro;  width: 640px ">
         <pou:dataTable id="brwPosting"  
                        var="customerBean"   
                        selectionMode="single" 
                        rowKey="#{customerBean.custId}"
-                       value="#{regMgr.custList}" 
-                       selection="#{regMgr.customerBean}"
+                       value="#{regMgrBrw.custList}" 
+                       selection="#{regMgrBrw.customerBean}"
                        style=" width: 100%;background-color: gainsboro"  >
             <pou:column selectionMode="single" style="width:16px;text-align:center"/>
             
-            <pou:column headerText="Display"  width="60" style=" font-size: 12px" >
+            <pou:column headerText="DOB"  width="60" style=" font-size: 12px" >
                 <h:outputText value="#{customerBean.dob}" />
             </pou:column>
-            <pou:column headerText="Modifided"  width="160" style=" font-size: 12px" >
+            <pou:column headerText="Athlete"  width="160" style=" font-size: 12px" >
                 <h:outputText value="#{customerBean.firstName}" />
+                <h:outputText value=" #{customerBean.lastName}" />
             </pou:column>
-            <pou:column headerText="Short Description" style=" font-size: 12px" >
-                <h:outputText value=" Desc: #{customerBean.lastName}" />
+           
+
+            
+        </pou:dataTable>
+    </pou:panel>
+   
+    <pou:toolbar  style=" width: 97%; font-size: 14px"  >
+        <f:facet name="left">
+            <pou:commandButton value="Done"    action="#{regMgr.logout()}"   />
+            <pou:commandButton value="Add Athlete Info"     action="#{regMgrBrw.childAdd()}" />
+            <pou:commandButton value="Edit Athlete Info"    action="#{regMgrBrw.childEdit()}" update="basicDialogBlockMsg"   />
+            <pou:commandButton value="New Registration"     action="#{regMgrBrw.regAthlete()}" update="basicDialogBlockMsg" />
+        </f:facet>
+    </pou:toolbar>
+     <br/>
+     <pou:panel style=" background-color: gainsboro ; width: 640px">
+        <pou:dataTable id="brwPosting2"  
+                       var="customerRegBean"   
+                       selectionMode="single" 
+                       rowKey="#{customerRegBean.regId}"
+                       value="#{regMgrBrw.regList}" 
+                       selection="#{regMgrBrw.customerRegBean}"
+                       style=" width: 100%;background-color: gainsboro"  >
+            <pou:column selectionMode="single" style="width:16px;text-align:center"/>
+            <pou:column headerText="Registration"  width="160" style=" font-size: 12px" >
+                <h:outputText value="#{customerRegBean.lookupDesc}" />
+
+            </pou:column>
+            <pou:column headerText="Athlete" style=" font-size: 12px" >
+                <h:outputText value="#{customerRegBean.fullName}" />
 
             </pou:column>
 
@@ -33,17 +59,12 @@
         </pou:dataTable>
     </pou:panel>
     <br/>
-    <pou:toolbar  style=" width: 97%; font-size: 14px"  >
-        <f:facet name="left">
-            <pou:commandButton value="Done"    action="#{mgrVideoProduction.userLogout()}"   />
-            <pou:commandButton value="Add"     action="#{regMgr.childAdd()}" />
-            <pou:commandButton value="Edit"    action="#{regMgr.childEdit()}"   />
-            <pou:commandButton value="Reg"     action="#{regMgr.regAthlete()}" />
-            
-            
-            
-            
-        </f:facet>
-    </pou:toolbar>
+    
+     <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+                 id="basicDialogBlockMsg"  style=" font-size: 14px"
+                 header="Client Information" 
+                 widgetVar="dialogWidgetbasicDialogBlockMsg" >  
+        #{regMgr.msg}
+    </pou:dialog> 
 </html>
 

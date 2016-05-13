@@ -31,16 +31,17 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     private customerBean customerBean;
-    private List<customerBean> custList;
-    private List<customerRegBean> regList;
-    private customerRegBean customerRegBean;
-    private customerLinkBean customerLinkBean ;
-    private String msg;
-    private int pgNum=0;
+    //private List<customerBean> custList;
+    //private List<customerRegBean> regList;
+    //private customerRegBean customerRegBean;
+    //private customerLinkBean customerLinkBean ;
+    private String msg,passwd;
+    private int pgNum=0,athletId=0;
     private boolean isNewCustomer=true;
+    private customerLinkBean customerLinkBean;
     private List<mgnLookupBean> mgnLookupList = null;
     private mgnLookupBean mgnLookupBean;
-    
+    private customerRegBean customerRegBean;
     
     // ---------------------------------------------------------------
     @ManagedProperty("#{mgrVideoProduction}")
@@ -48,107 +49,45 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     public void setMgrVideoProduction(mgrVideoProduction mgrVideoProduction) {
         this.mgrVideoProduction = mgrVideoProduction;
     }
-    private boolean isCusteromBeanSelected(){
-        if (this.customerBean == null || this.customerBean.getCustId() == 0) {
-            msg = "Nothing was selecterd";
-            return false;
-        }else {
-            msg = null;
-            return true;
-        }
-            
-    }
+    
+    
     // ------------------------------------------------------------------
-    public void regAthlete(){
-        msg = null;
-        if (isCusteromBeanSelected()){
-            mgrVideoProduction.setAthletId(this.customerBean.getCustId());
-            genRegList();
-            customerLinkBean = new customerLinkBean();
-            if (this.regList != null && this.regList.size() > 0){
-                customerLinkBean.setDob(regList.get(0).getDob());
-                customerLinkBean.setType(regList.get(0).getType());
-                if (regList.size() == 1 && regList.get(0).getRegId() == 0){
-                    regList.remove(0);
-                }
-            }
-            mgrVideoProduction.setUrl("reg/regAthlete01.xhtml");
+    public int getParentId(){
+        return this.getCustomerBean().getCustId();
+    }
+    public void logout(){
+        this.customerBean = new customerBean();
+        setCustomerLinkBean(new customerLinkBean());
+        isNewCustomer = true;
+        this.customerBean.setCustId(0);
+    }
+   
+    // ------------------------------------------------------------------
+    public void cancelParentEditing(){
+        
+        if (this.customerBean.getCustId() == 0){
+            mgrVideoProduction.regNewUsers();
             
         } else {
-            RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
-        }
-        
-        
-    }
-    public void regAthleteReset(){
-        regList = new ArrayList<>();
-        
-    }
-    public void regAthleteAdd(){
-        regAthleteReset();
-        genRegType();
-        customerRegBean = new customerRegBean();
-        mgnLookupBean = new mgnLookupBean();
-        mgrVideoProduction.setUrl("reg/regAthlete02.xhtml");
-    }
-    public void regAthleteEdit(){
-        
-    }
-    public void regAthleteBack(){
-        regAthleteReset();
-    }
-    private void genRegType(){
-        mgnLookupList = new mgnLookupObj().getLookupList(4, mgrVideoProduction.getDbBlazers());
-        if (mgnLookupList == null){
-            mgnLookupList = new ArrayList<mgnLookupBean>();
+            customerBean = new custObj().getcustomerBean(this.getCustomerBean().getCustId(), this.getDbBlazers());
+            mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
         }
     }
-    // ------------------------------------------------------------------
+    public void editParent(){
+        customerBean = new custObj().getcustomerBean(this.getCustomerBean().getCustId(), this.getDbBlazers());
+        parent();
+    }
+    private void parent(){
+        pgNum = 0;
+       mgrVideoProduction.setUrl("reg/regNewPg00.xhtml");
+    }
     public void newParent(){
+       customerBean = new customerBean();
+       parent();
        
-        mgrVideoProduction.setUrl("reg/regNewPg00.xhtml");
     }
-    public void childAdd(){
-        
-        cleanup();
-        mgrVideoProduction.setAthletId(0);
-        
-        child();
-    }
-    private void cleanup(){
-        customerBean = new customerBean();
-        customerLinkBean = new customerLinkBean();
-        
-    }
-    public void childEdit(){
-        if (!isCusteromBeanSelected()){
-             msg = "Nothing was selectred";
-             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
-             //mgrVideoProduction.forward();
-        } else {
-            mgrVideoProduction.setAthletId(customerBean.getCustId());
-            child();
-        }
-    }
-    private void child(){
-        genAthleteType();
-        mgrVideoProduction.setUrl("reg/userLogin02.xhtml");
-    }
-    public void childSave(){
-        
-        custObj custObj = new custObj();
-        int i = custObj.createUser(customerBean, mgrVideoProduction.getDbBlazers());
-        if (i != 0){
-            custObj.insertIntoLink(i,mgrVideoProduction.getParentId(), customerLinkBean, mgrVideoProduction.getDbBlazers());
-            childCancel();
-        }
-        
-        
-    }
-    public void childCancel(){
-        mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
-        genList();
-    }
+    
+    
     public void login() {
         msg = null;
         String password = this.getCustomerBean().getUserPass();
@@ -159,14 +98,14 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
             msg = "Missing eMail";
         } else {
             custObj custObj = new custObj();
-            customerBean = custObj.getcustomerBeanEMail(email, mgrVideoProduction.getDbBlazers());
+            customerBean = custObj.getcustomerBeanEMail(email,getCustomerBean().getCustId(), mgrVideoProduction.getDbBlazers());
             if (customerBean == null) {
                 msg = "Invaled EMail";
                 this.getCustomerBean().setEMail(email);
             } else {
                 if (!customerBean.getUserPass().toLowerCase().trim().contains(password.trim().toLowerCase())) {
                     customerBean.setCustId(0);
-                    customerBean.setUserPass(null);
+                    //customerBean.setUserPass(null);
                     msg = "Invalid Password";
                 } else {
                     mgrVideoProduction.setParentId(customerBean.getCustId());
@@ -182,9 +121,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
         }
 
     }
-    /**
-     * @return the customerBean
-     */
+   
     public String pgOneDisable(){
         return this.pgNum != 0 ? "true":"false";
     }
@@ -225,20 +162,45 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     public void setCustomerBean(customerBean customerBean) {
         this.customerBean = customerBean;
     }
+    // -------------------------------------------------------------------------
     public void chkAddrBack(){
         this.pgNum = 0;
         this.mgrVideoProduction.forward();
     }
-    public void chkAddr(){
+    
+    public  void chkNewUser(){
+        msg =  new custObjCheck().chkNewUser(getCustomerBean());
+        if (getMsg() == null){
+            custObj custObj = new custObj();
+            int i = custObj.getCustID(this.getCustomerBean().getEMail(),this.getCustomerBean().getCustId(), this.getDbBlazers());
+            if (i > 0){
+                msg = "E-Mail All Ready Exist";
+                
+            }
+        }
+        if (msg != null){
+            RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
+        } else {
+            this.passwd = this.getCustomerBean().getUserPass();
+            this.pgNum=1;
+            mgrVideoProduction.forward();
+        }
+    }
+ public void chkAddr(){
         int i;
          msg =  new custObjCheck().chkNewUserAddr(getCustomerBean());
          if (getMsg() !=  null){
             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg_2').show()");
         } else {
              custObj custObj = new custObj();
+             String str = this.getCustomerBean().getUserPass();
+             if (str == null || str.trim().length() == 0){
+                 this.getCustomerBean().setUserPass(this.passwd);
+             }
              i =  custObj.createUser(getCustomerBean(), this.getDbBlazers());
+             this.getCustomerBean().setCustId(i);
              if (isNewCustomer){
-                 custObj.insertIntoLink(i,i, getCustomerLinkBean(),mgrVideoProduction.getDbBlazers());
+                 new custRegObj().insertIntoLink(i,i, getCustomerLinkBean(),mgrVideoProduction.getDbBlazers());
              }
              isNewCustomer = false;
              //this.getCustomerBean().setCustId(i);
@@ -248,30 +210,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
              
          }
     }
-    public  void chkNewUser(){
-        msg =  new custObjCheck().chkNewUser(getCustomerBean());
-        if (getMsg() == null){
-            custObj custObj = new custObj();
-            int i = custObj.getCustID(this.getCustomerBean().getEMail(), this.getDbBlazers());
-            if (i > 0){
-                msg = "E-Mail All Ready Exist";
-                
-            } //else {
-                //i = custObj.createUser(customerBean, this.getDbBlazers());
-                //if (i > 0){
-                    
-                    //this.mgrVideoProduction.setCustomerBean(customerBean);
-                //}
-            //}
-        }
-        if (msg != null){
-            RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
-        } else {
-            this.pgNum=1;
-            mgrVideoProduction.forward();
-        }
-    }
-
+    // ---------------------------------------------------------------------------------------
     /**
      * @return the msg
      */
@@ -292,48 +231,16 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     public void setPgNum(int pgNum) {
         this.pgNum = pgNum;
     }
+    
 
     /**
      * @return the customerLinkBean
      */
-    public customerLinkBean getCustomerLinkBean() {
-        if (this.customerLinkBean == null) customerLinkBean = new customerLinkBean();
-        return customerLinkBean;
-    }
-
-    /**
-     * @param customerLinkBean the customerLinkBean to set
-     */
-    public void setCustomerLinkBean(customerLinkBean customerLinkBean) {
-        this.customerLinkBean = customerLinkBean;
-    }
-
+   
     /**
      * @return the custList
      */
-    public List<customerBean> getCustList() {
-        if (custList == null){
-             genList();
-        }
-        return custList;
-    }
-    private void genRegList(){
-         int id = mgrVideoProduction.getAthletId();
-         this.regList = new custRegObj().getcustomerRegBean(id, mgrVideoProduction.getDbBlazers());
-    }
-    private void genList(){
-        int id = mgrVideoProduction.getParentId();
-        custList = new custObj().getcustomerList_link(id, mgrVideoProduction.getDbBlazers());
-        if (custList == null) custList = new ArrayList<customerBean>();
-        if(this.customerBean != null) this.customerBean.setCustId(0);
-    }
-
-    /**
-     * @param custList the custList to set
-     */
-    public void setCustList(List<customerBean> custList) {
-        this.custList = custList;
-    }
+    
 
     /**
      * @return the customerBeanChild
@@ -359,33 +266,9 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     /**
      * @return the regList
      */
-    public List<customerRegBean> getRegList() {
-        if (regList == null){
-            regList = new ArrayList<customerRegBean>();
-        }
-        return regList;
-    }
+   
 
-    /**
-     * @param regList the regList to set
-     */
-    public void setRegList(List<customerRegBean> regList) {
-        this.regList = regList;
-    }
-
-    /**
-     * @return the customerRegBean
-     */
-    public customerRegBean getCustomerRegBean() {
-        return customerRegBean;
-    }
-
-    /**
-     * @param customerRegBean the customerRegBean to set
-     */
-    public void setCustomerRegBean(customerRegBean customerRegBean) {
-        this.customerRegBean = customerRegBean;
-    }
+   
 
     /**
      * @return the mgnLookupBean
@@ -403,4 +286,49 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     public void setMgnLookupBean(mgnLookupBean mgnLookupBean) {
         this.mgnLookupBean = mgnLookupBean;
     }
+
+    /**
+     * @return the athletId
+     */
+    public int getAthletId() {
+        return athletId;
+    }
+
+    /**
+     * @param athletId the athletId to set
+     */
+    public void setAthletId(int athletId) {
+        this.athletId = athletId;
+    }
+
+    /**
+     * @return the customerLinkBean
+     */
+    public customerLinkBean getCustomerLinkBean() {
+        if (customerLinkBean == null){
+            customerLinkBean = new customerLinkBean();
+        }
+        return customerLinkBean;
+    }
+
+    /**
+     * @param customerLinkBean the customerLinkBean to set
+     */
+    public void setCustomerLinkBean(customerLinkBean customerLinkBean) {
+        this.customerLinkBean = customerLinkBean;
+    }
+
+    /**
+     * @return the customerRegBean
+     */
+    public void resetRegBean(){
+        customerRegBean = new customerRegBean();
+        customerRegBean.setCust_id(this.athletId);
+    }
+    public customerRegBean getCustomerRegBean() {
+        if (customerRegBean == null) resetRegBean();
+        return customerRegBean;
+    }
+
+    
 }

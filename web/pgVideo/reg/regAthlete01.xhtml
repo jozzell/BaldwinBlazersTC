@@ -2,13 +2,13 @@
        xmlns:h="http://java.sun.com/jsf/html"
        xmlns:pou="http://primefaces.org/ui" >
    
-    <pou:panelGrid style="font-size:14px;width:97%">
+    <pou:panelGrid style="font-size:14px;width:640px">
         <pou:row >
                 <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
                     Name
                 </pou:column>
                 <pou:column>
-                    <h:outputLabel value="#{regMgr.customerBean.firstName} #{regMgr.customerBean.firstName}" />
+                    <h:outputLabel value="#{regMgrAhtlete.customerBean.firstName} #{regMgrAhtlete.customerBean.lastName}" />
                    
                 </pou:column>
             </pou:row>
@@ -17,30 +17,29 @@
                     Date of Birth
                 </pou:column>
                 <pou:column>
-                    <h:outputLabel  value="#{regMgr.customerLinkBean.dob}" />
+                    <h:outputLabel  value="#{regMgrAhtlete.customerLinkBean.dob}" />
                    
                 </pou:column>
             </pou:row>
     </pou:panelGrid>
     <br/>
+    
     <pou:dataTable id="brwPosting"  
-                       var="customerRegBean"   
+                       var="mgnLookupBean"   
                        selectionMode="single" 
-                       rowKey="#{customerRegBean.regId}"
-                       value="#{regMgr.regList}" 
-                       selection="#{regMgr.customerRegBean}"
+                       rowKey="#{mgnLookupBean.lookupId}"
+                       value="#{regMgrAhtlete.list}" 
+                       selection="#{regMgrAhtlete.mgnLookupBean}"
                        style=" width: 100%;background-color: gainsboro"  >
             <pou:column selectionMode="single" style="width:16px;text-align:center"/>
             
             <pou:column headerText="Display"  width="60" style=" font-size: 12px" >
-                <h:outputText value="#{customerRegBean.lookupDesc}" />
+                <h:outputText value="#{mgnLookupBean.lookupDesc}" />
             </pou:column>
             <pou:column headerText="Modifided"  width="160" style=" font-size: 12px" >
-                <h:outputText value="#{customerRegBean.regCompleted}" />
+                <h:outputText value="#{mgnLookupBean.subjectText}" />
             </pou:column>
-            <pou:column headerText="Modifided"  width="160" style=" font-size: 12px" >
-                <h:outputText value="#{customerRegBean.regPaidId}" />
-            </pou:column>
+           
 
             
         </pou:dataTable>
@@ -48,15 +47,15 @@
     
     <pou:toolbar  style=" font-size: 14px" >
         <pou:toolbarGroup align="left" style="font-size:14px" >
-            <pou:commandButton value="Back" action="#{regMgr.childCancel()}" />
-            <pou:commandButton value="Add" action="#{regMgr.childSave()}" update="basicDialogBlockMsg"/>
-            <pou:commandButton value="Edit" action="#{regMgr.childSave()}" update="basicDialogBlockMsg"/>
+            <pou:commandButton value="Cancel" action="#{regMgrAhtlete.cancelReg()}" />
+            
+            <pou:commandButton value="Next" action="#{regMgrAhtlete.regPg1Next()}" update="basicDialogBlockMsg"/>
         </pou:toolbarGroup>
     </pou:toolbar>
        
         <pou:dialog  position="60,260" resizable="false" height="100" width="400"
                  id="basicDialogBlockMsg"  style=" font-size: 14px"
-                 header="Client Information" 
+                 header="Reg Information" 
                  widgetVar="dialogWidgetbasicDialogBlockMsg" >  
         #{regMgr.msg}
     </pou:dialog> 

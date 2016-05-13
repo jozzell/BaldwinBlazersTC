@@ -1,6 +1,6 @@
 <html  xmlns="http://www.w3.org/1999/xhtml"   
        xmlns:pou="http://primefaces.org/ui" >
-    <pou:panelGrid style="font-size:14px;width:97%">
+    <pou:panelGrid style="font-size:14px;width:640px">
          <pou:row >
                 <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
                     EMail
@@ -23,8 +23,9 @@
    
     <pou:toolbar  style=" font-size: 14px" >
         <pou:toolbarGroup align="left" style="font-size:14px" >
-            <pou:commandButton value="login" action="#{regMgr.login()}" update="basicDialogBlockMsg"/>
+            
             <pou:commandButton value="New Parent/Athlet" action="#{regMgr.newParent()}" update="basicDialogBlockMsg"/>
+            <pou:commandButton value="login" action="#{regMgr.login()}" update="basicDialogBlockMsg"/>
         </pou:toolbarGroup>
     </pou:toolbar>
       <pou:dialog  position="60,260" resizable="false" height="100" width="400"
