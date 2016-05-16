@@ -1,14 +1,15 @@
 <html  xmlns="http://www.w3.org/1999/xhtml"   
        xmlns:h="http://java.sun.com/jsf/html"
        xmlns:pou="http://primefaces.org/ui" 
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:include src="#{regMgr.stepHtml}"   />
     <pou:panelGrid style="font-size:14px;width:640px">
-        <pou:row >
+       <pou:row >
                 <pou:column style="text-align:  right; background-color:  lightblue; font-size:14px; width: 30%">
-                    Name 
+                    Name
                 </pou:column>
-                <pou:column>
+           <pou:column colspan="2">
                     <h:outputLabel value="#{regMgr.customerRegBean.fullname}" />
                    
                 </pou:column>
@@ -17,44 +18,42 @@
                 <pou:column style="text-align:  right; background-color:  lightblue; font-size:14px; width: 30%">
                     Date of Birth
                 </pou:column>
-                <pou:column>
+            <pou:column colspan="2">
                     <h:outputLabel  value="#{regMgr.customerRegBean.dobStr}" />
                    
                 </pou:column>
             </pou:row>
+        <pou:row >
+                 <pou:column style="text-align:  right; background-color:  lightblue; font-size:14px; width: 30%">
+                    Registration
+                </pou:column>
+            <pou:column colspan="2">
+                <h:outputLabel  value="#{regMgr.customerRegBean.lookupDesc}" />
+                   
+                   
+                </pou:column>
+            </pou:row>
+        
+        
+        
     </pou:panelGrid>
+    
     <br/>
-    
-    <pou:dataTable    var="mgnLookupBean"   
-                       selectionMode="single" 
-                       rowKey="#{mgnLookupBean.lookupId}"
-                       value="#{regMgrAhtlete.list}" 
-                       selection="#{regMgrAhtlete.mgnLookupBean}"
-                       style=" width: 640px;background-color: gainsboro"  >
-            <pou:column selectionMode="single" style="width:16px;text-align:center"/>
-            <pou:column headerText="Season"  width="60" style=" font-size: 14px" >
-                <h:outputText value="#{mgnLookupBean.lookupDesc}" />
-            </pou:column>
-            <pou:column headerText="Detail"  width="160" style=" font-size: 14px" >
-                <h:outputText value="#{mgnLookupBean.subjectText}" />
-            </pou:column>
-           
-
-            
-        </pou:dataTable>
-    
+    <object type="application/pdf" data="#{_reg.path}/#{regMgr.customerRegBean.pdf}" 
+           height="300px" width="100%" style=" font-size: 20px">
+       Your browser can't display PDF, <a href="/#{regMgr.customerRegBean.pdf}" target="_blank" >click</a> to download pdf instead.
+        </object>
+    <br/>
     
     <pou:toolbar  style=" font-size: 14px" >
         <pou:toolbarGroup align="left" style="font-size:14px" >
-            <pou:commandButton value="Cancel" action="#{regMgrAhtlete.cancelReg()}" />
-            
-            <pou:commandButton value="Next" action="#{regMgrAhtlete.regPg1Next()}" update="basicDialogBlockMsg"/>
+            <pou:commandButton value="Done" action="#{regMgrAhtlete.cancelReg()}" />
         </pou:toolbarGroup>
     </pou:toolbar>
        
         <pou:dialog  position="60,260" resizable="false" height="100" width="400"
                  id="basicDialogBlockMsg"  style=" font-size: 14px"
-                 header="Reg Information" 
+                 header="Client Information" 
                  widgetVar="dialogWidgetbasicDialogBlockMsg" >  
         #{regMgrAhtlete.msg}
     </pou:dialog> 

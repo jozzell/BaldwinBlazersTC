@@ -6,9 +6,7 @@
 package bladwin.web.reg;
 
 import bladwin.web.mgrVideoProduction;
-import bladwin.web.mgrVideoProduction_EL;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -27,7 +25,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializable{
+public class regMgrAhtlete   implements Serializable{
     private customerBean customerBean;
     private mgnLookupBean mgnLookupBean;
     private customerLinkBean customerLinkBean; // = new customerLinkBean();
@@ -58,10 +56,19 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
     }
     public void regPg2Save(){
         //regMgr.getCustomerRegBean().setCust_id(regMgr.getAthletId());
-        new custRegObj().customerRegUpdate(regMgr.getCustomerRegBean(), this.getDbBlazers());
+        mgnLookupBean b = new mgnLookupObj().getLookupBean(-947, mgrVideoProduction.getDbBlazers());
+        String str = regMgr.getPdfFileName();
+        regMgr.getCustomerRegBean().setPdf(b.getLookupDesc()+"/"+str);
+        new custRegObj().customerRegUpdate(regMgr.getCustomerRegBean(), mgrVideoProduction.getDbBlazers());
         childCancel();
+        
+        //new regPDF().genPed(b.getSubjectText()+"/"+b.getLookupDesc()+"/"+str,this.regMgr,mgrVideoProduction.getDbBlazers());
+        //regMgr.setNav(eNumReg.reg_pg03);
+       //mgrVideoProduction.setUrl("reg/regAthlete03.xhtml");
+        //childCancel();
     }
     public void regPg2Back(){
+        regMgr.setNav(eNumReg.reg_pg01);
         mgrVideoProduction.setUrl("reg/regAthlete01.xhtml");
     }
     
@@ -72,6 +79,7 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
         } else {
             regMgr.getCustomerRegBean().setRegLookupId(mgnLookupBean.getLookupId());
             regMgr.getCustomerRegBean().setLookupDesc(mgnLookupBean.getLookupDesc());
+            regMgr.setNav(eNumReg.reg_pg02);
             mgrVideoProduction.setUrl("reg/regAthlete02.xhtml");
         }
     }
@@ -79,6 +87,8 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
         childCancel();
     }
     public void childCancel(){
+        regMgr.setNav(eNumReg.regBrw);
+        
         mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
         //genList();
     }
@@ -89,7 +99,7 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
         if (customerBean == null){
              int i = regMgr.getAthletId();
              if (i != 0){
-                 customerBean = new custObj().getcustomerBean(i, this.getDbBlazers());
+                 customerBean = new custObj().getcustomerBean(i, mgrVideoProduction.getDbBlazers());
              }
              if (customerBean == null) {
                 customerBean = new customerBean();
@@ -113,7 +123,7 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
          if (mgnLookupObj == null){
             mgnLookupObj = new mgnLookupObj();
         }
-         List<mgnLookupBean> l =  mgnLookupObj.getLookupList(i, this.getDbBlazers());
+         List<mgnLookupBean> l =  mgnLookupObj.getLookupList(i, mgrVideoProduction.getDbBlazers());
          if (i != 4){
              
             l.add(0,new mgnLookupBean());
@@ -124,7 +134,7 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
         if (customerLinkBean == null) {
             int i = regMgr.getAthletId();
             if (i > 0) {
-                customerLinkBean = new custRegObj().getCustomerLinkBean(i, this.getDbBlazers());
+                customerLinkBean = new custRegObj().getCustomerLinkBean(i, mgrVideoProduction.getDbBlazers());
             }
             if (customerLinkBean == null) customerLinkBean = new customerLinkBean();
         }
@@ -153,8 +163,14 @@ public class regMgrAhtlete  extends mgrVideoProduction_EL  implements Serializab
      * @return the mgnLookupBean
      */
     public mgnLookupBean getMgnLookupBean() {
-        if (mgnLookupBean == null){
-            mgnLookupBean = new mgnLookupBean();
+        if (mgnLookupBean == null) {
+            int i = regMgr.getCustomerRegBean().getRegLookupId();
+            if (i > 0) {
+                mgnLookupBean = new mgnLookupObj().getLookupBean(i, mgrVideoProduction.getDbBlazers());
+            }
+            if (mgnLookupBean == null) {
+                mgnLookupBean = new mgnLookupBean();
+            }
         }
         return mgnLookupBean;
     }

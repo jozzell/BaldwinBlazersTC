@@ -163,6 +163,7 @@ public class regMgr_backup extends mgrVideoProduction_EL  implements Serializabl
                     regList.remove(0);
                 }
             }
+            
             mgrVideoProduction.setUrl("reg/regAthlete01.xhtml");
             
         } else {
@@ -195,6 +196,7 @@ public class regMgr_backup extends mgrVideoProduction_EL  implements Serializabl
         this.regList = regList;
     }
     public void childCancel(){
+        //this.nav = eNumReg.regBrw;
         mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
         //genList();
     }
@@ -203,6 +205,7 @@ public class regMgr_backup extends mgrVideoProduction_EL  implements Serializabl
         genRegType();
         customerRegBean = new customerRegBean();
         mgnLookupBean = new mgnLookupBean();
+        
         mgrVideoProduction.setUrl("reg/regAthlete02.xhtml");
     }
     public void regAthleteEdit(){
@@ -286,6 +289,7 @@ public class regMgr_backup extends mgrVideoProduction_EL  implements Serializabl
              isNewCustomer = false;
              //this.getCustomerBean().setCustId(i);
              this.mgrVideoProduction.setParentId(i);
+             //this.nav = eNumReg.regBrw;
              mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
             
              

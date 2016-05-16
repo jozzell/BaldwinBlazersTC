@@ -6,14 +6,17 @@
 package bladwin.web.reg;
 
 import bladwin.web.mgrVideoProduction;
-import bladwin.web.mgrVideoProduction_EL;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import mgn.obj._beans.customerBean;
+import mgn.obj._beans.customerRegBean;
 import mgn.obj._beans.mgnLookupBean;
+import mgn.obj.cust.custObj;
+import mgn.obj.cust.custRegObj;
 import mgn.obj.lookup.mgnLookupObj;
 
 /**
@@ -22,13 +25,16 @@ import mgn.obj.lookup.mgnLookupObj;
  */
 @ManagedBean
 @RequestScoped
-public class _reg  extends mgrVideoProduction_EL  implements Serializable{
+public class _reg   implements Serializable{
+     private List<customerRegBean> regList;
+     private List<customerBean> custList;
      private List<mgnLookupBean> 
             listShirt=null,
             listSuit=null,
             listShorts=null,
             listPayment=null,
             listReg=null;
+    private String path=null;
     private List<mgnLookupBean> type;
     private List<mgnLookupBean> athleteType;
     @ManagedProperty("#{mgrVideoProduction}")
@@ -43,7 +49,7 @@ public class _reg  extends mgrVideoProduction_EL  implements Serializable{
     }
     public List<mgnLookupBean> getType() {
         if (type == null){
-            type = new mgnLookupObj().getLookupList(1, this.getDbBlazers());
+            type = new mgnLookupObj().getLookupList(1, mgrVideoProduction.getDbBlazers());
         }
         return type;
     }
@@ -60,7 +66,7 @@ public class _reg  extends mgrVideoProduction_EL  implements Serializable{
     }
     public synchronized List<mgnLookupBean> genList(int i){
          
-         List<mgnLookupBean> l =  new mgnLookupObj().getLookupList(i, this.getDbBlazers());
+         List<mgnLookupBean> l =  new mgnLookupObj().getLookupList(i, mgrVideoProduction.getDbBlazers());
          
          return l;
     }
@@ -105,5 +111,39 @@ public class _reg  extends mgrVideoProduction_EL  implements Serializable{
         if ( listPayment== null) listPayment = genList(8);
         return listPayment;
     }
+public List<customerRegBean> getRegList() {
+        if (regList == null){
+            int id = regMgr.getParentId();
+            regList = new custRegObj().getCustomerRegBeanList_byRollup(id, mgrVideoProduction.getDbBlazers());
+        }
+        return regList;
+    }
+ public List<customerBean> getCustList() {
+        if (custList == null){
+             genList();
+        }
+        return custList;
+    }
+     private void genList(){
+        int id = regMgr.getParentId();
+        custList = new custObj().getcustomerList_link(id, mgrVideoProduction.getDbBlazers());
+        if (custList == null) custList = new ArrayList<customerBean>();
+        //if(this.getCustomerBean() != null) this.getCustomerBean().setCustId(0);
+    }
+    public void setCustList(List<customerBean> custList) {
+        this.custList = custList;
+    }
 
+    /**
+     * @return the path
+     */
+    public String getPath() {
+        if (path == null){
+            mgnLookupBean b = new mgnLookupObj().getLookupBean(-947, mgrVideoProduction.getDbBlazers());
+            if (b != null){
+                path = b.getSubjectText();
+            }
+        }
+        return path;
+    }
 }

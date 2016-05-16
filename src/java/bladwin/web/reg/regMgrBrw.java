@@ -6,17 +6,19 @@
 package bladwin.web.reg;
 
 import bladwin.web.mgrVideoProduction;
-import bladwin.web.mgrVideoProduction_EL;
+import eMail.sendEMail;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.mail.MessagingException;
 import mgn.obj._beans.customerBean;
 import mgn.obj._beans.customerRegBean;
-import mgn.obj.cust.custObj;
+import mgn.obj._beans.mgnLookupBean;
 import mgn.obj.cust.custRegObj;
+import mgn.obj.lookup.mgnLookupObj;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -25,11 +27,12 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
-    private List<customerBean> custList;
-    private List<customerRegBean> regList;
+public class regMgrBrw   implements Serializable{
+    
+    //private List<customerRegBean> regList;
     private customerRegBean customerRegBean;
     private customerBean customerBean;
+    
     
     // ---------------------------------------------------------------
     private String msg;
@@ -47,21 +50,7 @@ public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
     
     
     
-    public List<customerBean> getCustList() {
-        if (custList == null){
-             genList();
-        }
-        return custList;
-    }
-     private void genList(){
-        int id = regMgr.getParentId();
-        custList = new custObj().getcustomerList_link(id, mgrVideoProduction.getDbBlazers());
-        if (custList == null) custList = new ArrayList<customerBean>();
-        if(this.getCustomerBean() != null) this.getCustomerBean().setCustId(0);
-    }
-    public void setCustList(List<customerBean> custList) {
-        this.custList = custList;
-    }
+   
 
     /**
      * @return the customerBean
@@ -74,6 +63,60 @@ public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
     }
     public void setCustomerBean(customerBean customerBean) {
         this.customerBean = customerBean;
+    }
+     public void sendEMail(){
+        if (this.customerRegBean == null){
+             msg = "No Registration was selected";
+             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
+        } else {
+            try {
+                String[] mail = new String[2];
+        mail[0] = "lmeans@optonline.com";
+        mail[1] = "BaldwinBlazers@optonline.net";
+                mgnLookupBean b = new mgnLookupObj().getLookupBean(-947,  mgrVideoProduction.getDbBlazers());
+                new sendEMail().send(b.getSubjectText()+"/"+ customerRegBean.getPdf(),mail,"BaldwinBlazers@optonline.net","Registration Form from "+customerRegBean.getFullname());
+                msg = "E-Mail Sent";
+                
+            } catch (MessagingException ex) {
+                 msg = "Sorry, But your E-Mail was not sent, Please Download PDF and e-mail it to BaldwinBlazers@optonline.net";
+                Logger.getLogger(regMgrBrw.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
+             
+        
+        }
+     }
+    // ---------------------------------------------------------
+    public void viewPdf(){
+        if (this.customerRegBean == null){
+             msg = "No Registration was selected";
+             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
+        } else {
+            
+            this.regMgr.setCustomerRegBean(customerRegBean);
+            int i = customerRegBean.getRegId();
+            mgnLookupBean b = new mgnLookupObj().getLookupBean(-947, mgrVideoProduction.getDbBlazers());
+            String str = regMgr.getPdfFileName();
+            
+            
+            this.regMgr.getCustomerRegBean().setPdf(b.getLookupDesc()+"/"+str);
+            new custRegObj().updateRegPdf(i,  this.regMgr.getCustomerRegBean().getPdf(), mgrVideoProduction.getDbBlazers());
+            new regPDF().genPed(b.getSubjectText()+"/"+b.getLookupDesc()+"/"+str,this.regMgr,mgrVideoProduction.getDbBlazers());
+            
+            this.regMgr.setNav(eNumReg.regPdfView);
+            mgrVideoProduction.setUrl("reg/regAthlete03.xhtml");
+        }
+    }
+    public void editReg(){
+        if (this.customerRegBean == null){
+             msg = "No Registration was selected";
+             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
+        } else {
+            regMgr.setAthletId(customerRegBean.getCust_id());
+            regMgr.setCustomerRegBean(customerRegBean);
+            regMgr.setNav(eNumReg.reg_pg01);
+            mgrVideoProduction.setUrl("reg/regAthlete01.xhtml");
+        }
     }
     // ---------------------------------------------------------
     public void childAdd(){
@@ -95,6 +138,7 @@ public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
         }
     }
     private void child(){
+        this.regMgr.setNav(eNumReg.regAthlete);
         mgrVideoProduction.setUrl("reg/userLogin02.xhtml");
     }
      private boolean isCusteromBeanSelected(){
@@ -112,6 +156,8 @@ public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
         if (isCusteromBeanSelected()){
             regMgr.setAthletId(this.customerBean.getCustId());
             regMgr.resetRegBean();
+            
+            regMgr.setNav(eNumReg.reg_pg01);
             mgrVideoProduction.setUrl("reg/regAthlete01.xhtml");
             
             
@@ -132,14 +178,7 @@ public class regMgrBrw  extends mgrVideoProduction_EL  implements Serializable{
     /**
      * @return the regList
      */
-    public List<customerRegBean> getRegList() {
-        if (regList == null){
-            int id = regMgr.getParentId();
-            regList = new custRegObj().getCustomerRegBeanList_byRollup(id, this.getDbBlazers());
-        }
-        return regList;
-    }
-
+    
     /**
      * @return the customerRegBean
      */

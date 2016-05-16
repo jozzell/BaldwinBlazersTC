@@ -3,68 +3,121 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:pou="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">  
-    
-    <pou:panel style=" background-color: gainsboro;  width: 640px ">
-        <pou:dataTable id="brwPosting"  
-                       var="customerBean"   
-                       selectionMode="single" 
-                       rowKey="#{customerBean.custId}"
-                       value="#{regMgrBrw.custList}" 
-                       selection="#{regMgrBrw.customerBean}"
-                       style=" width: 100%;background-color: gainsboro"  >
-            <pou:column selectionMode="single" style="width:16px;text-align:center"/>
-            
-            <pou:column headerText="DOB"  width="60" style=" font-size: 12px" >
-                <h:outputText value="#{customerBean.dob}" />
-            </pou:column>
-            <pou:column headerText="Athlete"  width="160" style=" font-size: 12px" >
-                <h:outputText value="#{customerBean.firstName}" />
-                <h:outputText value=" #{customerBean.lastName}" />
-            </pou:column>
-           
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
 
-            
-        </pou:dataTable>
-    </pou:panel>
-   
+ <ui:include src="#{regMgr.stepHtml}"   />
+
+ 
+    <pou:dataTable id="brwPosting"  
+                   var="customerBean"   
+                   selectionMode="single" 
+                   rowKey="#{customerBean.custId}"
+                   value="#{_reg.custList}" 
+                   selection="#{regMgrBrw.customerBean}"
+                   style=" width: 640px;background-color: gainsboro"  >
+        <pou:column selectionMode="single" style="width:10px;text-align:center"/>
+        <pou:column headerText="Parent/Athlete"  width="160" style=" font-size: 14px" >
+            <h:outputText value="#{customerBean.firstName}" />
+            <h:outputText value=" #{customerBean.lastName}" />
+        </pou:column>
+        <pou:column headerText="E-Mail"  width="60" style=" font-size: 14px" >
+            <h:outputText value="#{customerBean.EMail}" />
+        </pou:column>
+
+
+
+
+    </pou:dataTable>
+    <br/>
+
     <pou:toolbar  style=" width: 97%; font-size: 14px"  >
         <f:facet name="left">
-            <pou:commandButton value="Done"    action="#{regMgr.logout()}"   />
+            <pou:commandButton value="Done"    action="#{mgrVideoProduction.userLogout()}"   />
             <pou:commandButton value="Add Athlete Info"     action="#{regMgrBrw.childAdd()}" />
             <pou:commandButton value="Edit Athlete Info"    action="#{regMgrBrw.childEdit()}" update="basicDialogBlockMsg"   />
             <pou:commandButton value="New Registration"     action="#{regMgrBrw.regAthlete()}" update="basicDialogBlockMsg" />
         </f:facet>
     </pou:toolbar>
-     <br/>
-     <pou:panel style=" background-color: gainsboro ; width: 640px">
-        <pou:dataTable id="brwPosting2"  
-                       var="customerRegBean"   
-                       selectionMode="single" 
-                       rowKey="#{customerRegBean.regId}"
-                       value="#{regMgrBrw.regList}" 
-                       selection="#{regMgrBrw.customerRegBean}"
-                       style=" width: 100%;background-color: gainsboro"  >
-            <pou:column selectionMode="single" style="width:16px;text-align:center"/>
-            <pou:column headerText="Registration"  width="160" style=" font-size: 12px" >
-                <h:outputText value="#{customerRegBean.lookupDesc}" />
-
-            </pou:column>
-            <pou:column headerText="Athlete" style=" font-size: 12px" >
-                <h:outputText value="#{customerRegBean.fullName}" />
-
-            </pou:column>
-
-            
-        </pou:dataTable>
-    </pou:panel>
     <br/>
-    
-     <pou:dialog  position="60,260" resizable="false" height="100" width="400"
+ <pou:toolbar  style=" width: 97%; font-size: 14px"  >
+        <f:facet name="left">
+
+            <h:outputText value="Current Registration" style=" text-align:  center" />
+        </f:facet>
+    </pou:toolbar>
+    <br/>
+    <pou:dataTable id="brwPosting2"  
+                   var="customerRegBean"   
+                   selectionMode="single" 
+                   rowKey="#{customerRegBean.regId}"
+                   value="#{_reg.regList}" 
+                   selection="#{regMgrBrw.customerRegBean}"
+                   style=" width: 640px" styleClass=""  >
+        
+        <pou:column selectionMode="single" style="width:10px;text-align:center"/>
+        <pou:column style="width:16px">
+            <pou:rowToggler />
+        </pou:column>
+        <pou:column headerText="Registration"  width="160" style=" font-size: 14px" >
+            <h:outputText value="#{customerRegBean.lookupDesc}" />
+
+        </pou:column>
+        <pou:column headerText="Athlete" style=" font-size: 14px" >
+            <h:outputText value="#{customerRegBean.fullname}" />
+
+        </pou:column>
+        <pou:column headerText="DOB" style=" font-size: 14px" >
+            <h:outputText value="#{customerRegBean.dobStr}" />
+
+        </pou:column>
+        <pou:rowExpansion>
+            <pou:panelGrid  columns="3" columnClasses="label,value" style="width:600px; font-size: 14px;">
+                <f:facet name="header">
+                    <h:outputText value="Uniform" />
+                </f:facet>
+ 
+                <h:outputText value="Shirt Size" style="text-align:  center; background-color:  lightblue"/>
+                <h:outputText value="Short Size" style="text-align:  center; background-color:  lightblue"/>
+                <h:outputText value="Suite Size" style="text-align:  center; background-color:  lightblue"/>
+                <h:outputText value="#{customerRegBean.shirtSizeStr}" />
+                <h:outputText value="#{customerRegBean.shortSideStr}" />
+                <h:outputText value="#{customerRegBean.warmupSuiteSizeStr}" />
+            </pou:panelGrid>
+            <br/>
+            <pou:panelGrid  columns="1" columnClasses="label,value" style="width:600px; font-size: 14px;">
+               
+ 
+                <h:outputText value="School" style="text-align:  center; background-color:  lightblue;" />
+                <h:outputText value="#{customerRegBean.school}" />
+                <h:outputText value="Concerns" style="text-align:  center; background-color:  lightblue"/>
+                
+                <h:outputText value="#{customerRegBean.regNote}" />
+                <h:outputText value="Emergency Telephone Number(s)/Names: " style="text-align:  center; background-color:  lightblue"/>
+                
+                <h:outputText value="#{customerRegBean.contact}" />
+                
+            </pou:panelGrid>
+        </pou:rowExpansion>
+
+    </pou:dataTable>
+
+    <br/>
+    <pou:toolbar  style=" width: 97%; font-size: 14px"  >
+        <f:facet name="left">
+
+            <pou:commandButton value="Edit Registration"    action="#{regMgrBrw.editReg()}" update="basicDialogBlockMsg"   />
+            <pou:commandButton value="E-Mail Registration"    action="#{regMgrBrw.sendEMail()}" update="basicDialogBlockMsg"   />
+            <pou:commandButton value="View Registration PDF"    action="#{regMgrBrw.viewPdf()}" update="basicDialogBlockMsg"   />
+        </f:facet>
+    </pou:toolbar>
+    <br/>
+    <pou:dialog  position="60,260" resizable="false" height="100" width="400"
                  id="basicDialogBlockMsg"  style=" font-size: 14px"
                  header="Client Information" 
                  widgetVar="dialogWidgetbasicDialogBlockMsg" >  
-        #{regMgr.msg}
+        #{regMgrBrw.msg}
+
     </pou:dialog> 
 </html>
 

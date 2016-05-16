@@ -1017,45 +1017,10 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.jozVideoProdObj.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${reference._reusableObjV3.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${reference.ManhassetGreatNeckObj.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._primefaces-extensions.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.jsf20.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._SunRowSet.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._Primeface_5.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._log4j.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._javaxChange.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._ApacheCommonLoging.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._Apache_XMLBeans.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._commons-lang.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._Mail.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._MailAPI.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.jstl.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.blitzer-1.0.10.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs._common_upload.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
-    <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${reference.jozVideoProdObj.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference._reusableObjV3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.ManhassetGreatNeckObj.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._primefaces-extensions.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.jsf20.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._SunRowSet.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._Primeface_5.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._log4j.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._javaxChange.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._ApacheCommonLoging.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._Apache_XMLBeans.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._commons-lang.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._Mail.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._MailAPI.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.jstl.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.blitzer-1.0.10.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs._common_upload.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-    </target>
+    <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir"/>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
     </target>

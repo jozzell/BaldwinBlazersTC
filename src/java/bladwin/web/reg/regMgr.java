@@ -7,8 +7,11 @@ package bladwin.web.reg;
 
 import bladwin.web.mgrVideoProduction;
 import bladwin.web.mgrVideoProduction_EL;
+import java.io.File;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,6 +24,7 @@ import mgn.obj.cust.custObj;
 import mgn.obj.cust.custObjCheck;
 import mgn.obj.cust.custRegObj;
 import mgn.obj.lookup.mgnLookupObj;
+import obj.reusableObj;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -31,12 +35,9 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     private customerBean customerBean;
-    //private List<customerBean> custList;
-    //private List<customerRegBean> regList;
-    //private customerRegBean customerRegBean;
-    //private customerLinkBean customerLinkBean ;
     private String msg,passwd;
     private int pgNum=0,athletId=0;
+    private eNumReg nav = eNumReg.login;
     private boolean isNewCustomer=true;
     private customerLinkBean customerLinkBean;
     private List<mgnLookupBean> mgnLookupList = null;
@@ -66,14 +67,17 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     public void cancelParentEditing(){
         
         if (this.customerBean.getCustId() == 0){
+            setNav(eNumReg.login);
             mgrVideoProduction.regNewUsers();
             
         } else {
             customerBean = new custObj().getcustomerBean(this.getCustomerBean().getCustId(), this.getDbBlazers());
+            this.setNav(eNumReg.regBrw);
             mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
         }
     }
     public void editParent(){
+        setNav(eNumReg.regEditParent_pg1);
         customerBean = new custObj().getcustomerBean(this.getCustomerBean().getCustId(), this.getDbBlazers());
         parent();
     }
@@ -82,12 +86,30 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
        mgrVideoProduction.setUrl("reg/regNewPg00.xhtml");
     }
     public void newParent(){
+        setNav(eNumReg.newParentName);
        customerBean = new customerBean();
        parent();
        
     }
     
-    
+    public String getPdfFileName() {
+        String str = new reusableObj().getUnixName(this.customerRegBean.getFullname());
+        mgnLookupBean b = new mgnLookupObj().getLookupBean(-947, this.getDbBlazers());
+        Calendar cal = Calendar.getInstance();
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("/blz/pdf/reg/")
+                .append(new SimpleDateFormat("YYYYmm").format(cal.getTime()));
+        String x = b.getSubjectText()+sb.toString();
+               
+        new File(b.getSubjectText()+"/"+b.getLookupDesc()+"/"+sb.toString()).mkdirs();
+        sb
+                .append("/")
+                .append(str)
+                .append(cal.getTimeInMillis())
+                .append(".pdf");
+        return sb.toString();
+    }
     public void login() {
         msg = null;
         String password = this.getCustomerBean().getUserPass();
@@ -116,6 +138,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
             //mgrVideoProduction.forward();
         } else {
+            this.setNav(eNumReg.regBrw);
             mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
            
         }
@@ -133,11 +156,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     }
     public customerBean getCustomerBean() {
         if (customerBean == null){
-            int i = mgrVideoProduction.getParentId();
-            if (i == 0){
-                customerBean = new customerBean();
-            }
-            //customerBean = this.mgrVideoProduction.getCustomerBean();
+           customerBean = new customerBean();
         }
         return customerBean;
     }
@@ -165,6 +184,11 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
     // -------------------------------------------------------------------------
     public void chkAddrBack(){
         this.pgNum = 0;
+        if (this.customerBean.getCustId() != 0)
+            this.setNav(eNumReg.regEditParent_pg1);
+        else {
+            this.setNav(eNumReg.newParentName);
+        }
         this.mgrVideoProduction.forward();
     }
     
@@ -173,7 +197,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
         if (getMsg() == null){
             custObj custObj = new custObj();
             int i = custObj.getCustID(this.getCustomerBean().getEMail(),this.getCustomerBean().getCustId(), this.getDbBlazers());
-            if (i > 0){
+            if (i > 0 && i != this.getCustomerBean().getCustId()){
                 msg = "E-Mail All Ready Exist";
                 
             }
@@ -181,6 +205,11 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
         if (msg != null){
             RequestContext.getCurrentInstance().execute("PF('dialogWidgetbasicDialogBlockMsg').show()");
         } else {
+            if (this.customerBean.getCustId() == 0){
+                setNav(eNumReg.newParentAddr);
+            } else {
+                setNav(eNumReg.regEditParent_pg2);
+            }
             this.passwd = this.getCustomerBean().getUserPass();
             this.pgNum=1;
             mgrVideoProduction.forward();
@@ -205,6 +234,7 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
              isNewCustomer = false;
              //this.getCustomerBean().setCustId(i);
              this.mgrVideoProduction.setParentId(i);
+             this.setNav(eNumReg.regBrw);
              mgrVideoProduction.setUrl("reg/userLogin01.xhtml");
             
              
@@ -318,16 +348,53 @@ public class regMgr extends mgrVideoProduction_EL  implements Serializable{
         this.customerLinkBean = customerLinkBean;
     }
 
-    /**
-     * @return the customerRegBean
-     */
+   
     public void resetRegBean(){
         customerRegBean = new customerRegBean();
-        customerRegBean.setCust_id(this.athletId);
+        customerLinkBean x = new custRegObj().getCustomerLinkBean(this.athletId, this.getDbBlazers());
+        if (x != null){
+            customerRegBean.setRegCustId(this.athletId);
+            customerRegBean.setDob(x.getDob());
+            customerRegBean.setDobStr(x.getDobStr());
+            customerRegBean.setFullname(x.getFullname());
+        }
+            
+            
+            //customerRegBean.setRegCustId(athletId);
+                
+        
     }
     public customerRegBean getCustomerRegBean() {
         if (customerRegBean == null) resetRegBean();
         return customerRegBean;
+    }
+
+    /**
+     * @param customerRegBean the customerRegBean to set
+     */
+    public void setCustomerRegBean(customerRegBean customerRegBean) {
+        this.customerRegBean = customerRegBean;
+    }
+
+    /**
+     * @return the step
+     */
+    public int getStep() {
+        return nav.getPg();
+    }
+
+    /**
+     * @return the stepHtml
+     */
+    public String getStepHtml() {
+        return nav.getHtml();
+    }
+
+    /**
+     * @param nav the nav to set
+     */
+    public void setNav(eNumReg nav) {
+        this.nav = nav;
     }
 
     

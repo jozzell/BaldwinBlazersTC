@@ -1,8 +1,11 @@
 <html  xmlns="http://www.w3.org/1999/xhtml"   
-       xmlns:pou="http://primefaces.org/ui" >
+       xmlns:pou="http://primefaces.org/ui" 
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:include src="#{regMgr.stepHtml}"   />
+    
     <pou:panelGrid style="font-size:14px;width:640px">
          <pou:row >
-                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:14px; width: 30%">
                     EMail
                 </pou:column>
                 <pou:column>
@@ -10,7 +13,7 @@
                 </pou:column>
             </pou:row>
         <pou:row >
-                <pou:column style="text-align:  right; background-color:  lightblue; font-size:10px; width: 30%">
+                <pou:column style="text-align:  right; background-color:  lightblue; font-size:14px; width: 30%">
                     Password
                 </pou:column>
                 <pou:column>
@@ -24,7 +27,7 @@
     <pou:toolbar  style=" font-size: 14px" >
         <pou:toolbarGroup align="left" style="font-size:14px" >
             
-            <pou:commandButton value="New Parent/Athlet" action="#{regMgr.newParent()}" update="basicDialogBlockMsg"/>
+            <pou:commandButton value="New Parent (Primary)" action="#{regMgr.newParent()}" update="basicDialogBlockMsg"/>
             <pou:commandButton value="login" action="#{regMgr.login()}" update="basicDialogBlockMsg"/>
         </pou:toolbarGroup>
     </pou:toolbar>
